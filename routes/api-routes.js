@@ -28,7 +28,9 @@ router.get("/api/workouts/range", (req, res) => {
 router.put("/api/workouts/:id", (req, res) => {
   Workout.findByIdAndUpdate(
     req.params.id,
-    req.body,
+    {
+      $push: { exercises: req.body },
+    },
     { new: true },
     (err, data) => {
       //bad request error
@@ -48,3 +50,5 @@ router.post("/api/workouts", (req, res) => {
       res.status(400).json(err);
     });
 });
+
+module.exports = router;
