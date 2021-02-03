@@ -31,13 +31,14 @@ router.put("/api/workouts/:id", (req, res) => {
     {
       $push: { exercises: req.body },
     },
-    { new: true },
-    (err, data) => {
-      //bad request error
-      if (err) return res.status(500).send(err);
-      return res.send(data);
-    }
-  );
+    { new: true }
+  )
+    .then((data) => {
+      res.json(data);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
 });
 
 router.post("/api/workouts", (req, res) => {
